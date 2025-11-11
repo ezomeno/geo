@@ -50,11 +50,11 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
 
 ## Build own database.js
 
-Requirements:
+**Requirements**:
 1. NodeJS or BunJS or anything that runs nodejs code.
-2. Install dependency: mmdb-reader
+2. Install dependency: `mmdb-reader` (BunJS auto installs it?)
 
-Steps:
+**Steps**:
 1. Download both ASN and City mmdb from anywhere.
     - Example: <a href="https://github.com/P3TERX/GeoLite.mmdb/releases">P3TERX/GeoLite.mmdb</a>
 3. Ensure to rename it in this format: `GeoLite2-City-{YYYYMMDD}.mmdb`
@@ -64,10 +64,13 @@ Steps:
 	- Example 1: `mmdb/GeoLite2-ASN-20230107.mmdb` (for ASN)
     - Example 2: `mmdb/GeoLite2-City-20230107.mmdb` (for City)
 7. Edit file `devtools/geoLite-dev.js`
-    1. Edit variable `defaultDbDate` and set it in this format `YYYYMMDD`
-    2. Set `scriptAct` to `2` to build csv and data file.
-9. Run the script (example: `node geoLite-dev`)
-10. Wait, usually can take upto an hour or more.
-11. Make sure to reset `scriptAct` to `0` once done.
-
-
+    1. (All below is about variable `geoLiteConfig`)
+    2. Set `defaultDbDate` use this format `YYYYMMDD`
+    3. Set `scriptAct` to `2` to build csv and data file.
+8. Save and Run the script (assuming directory is devtools)
+    ```
+    node geoLite-dev
+    ```
+9. Wait, usually can take upto an hour or more.
+10. Make sure to reset `scriptAct` to `0` once done.
+11. Enjoy (data is built in same dir as `geoLite-dev.js`)
