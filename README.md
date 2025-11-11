@@ -19,8 +19,8 @@ Basic features
 
 # Usage examples
 
-## Lookup (lookup done locally)
-Internet connection is not required after database is loaded.<br>
+## Lookup (works locally)
+Internet connection is not required after database is loaded - it works locally.<br>
 ```js
 var info = geoLite.lookup(ipAddr.value);
 ipaResult.innerHTML = (
