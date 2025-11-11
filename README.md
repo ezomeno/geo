@@ -7,6 +7,7 @@ This is free and unencumbered software released into the public domain.
 <script src="geoLite.datav5-20251025.js" defer></script>
 ```
 As always, data file is loaded after `geoLite.js` along with attribute `defer` to allow page to render.<br>
+Alternatively see <a href="https://github.com/ezomeno/geo/blob/main/dist/geoLite.html">geoLite.html</a>.
 ### Important
 Due `geoLite` needing to "decompress" data it can take half a second upto a second of delay before user can interact with the page.<br>
 
