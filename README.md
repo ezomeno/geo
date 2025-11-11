@@ -75,3 +75,6 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
 9. Wait, usually can take upto an hour or more.
 10. Make sure to reset `scriptAct` to `0` once done.
 11. Enjoy (data is built in same dir as `geoLite-dev.js`)
+
+## Future plans
+None at all, unless someone suggests `public domain` licensed library that can be used to further compress data file.
