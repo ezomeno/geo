@@ -47,3 +47,24 @@ geoLite.ipFetchTimeout = 3000; // 3000 is default
 geoLite.ipFetchMaxTimeout = 6000; // 6000 is default
 geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
 ```
+
+## Build own database.js
+
+Requirements:
+1. NodeJS or BunJS or anything that runs nodejs code.
+2. Install dependency: mmdb-reader
+
+Steps:
+1. Download both ASN and City mmdb from anywhere.
+2. Ensure to rename it in this format: `GeoLite2-City-{YYYYMMDD}.mmdb`
+3. Create folders `mmdb` and `csv` next to `devtools/geoLite-dev.js`
+4. Put `.mmdb` files in folder `mmdb`
+	- Example 1: `mmdb/GeoLite2-ASN-20230107.mmdb` (for ASN)
+    - Example 2: `mmdb/GeoLite2-City-20230107.mmdb` (for City)
+6. Edit file `devtools/geoLite-dev.js`
+    - Edit variable `defaultDbDate` and set it in this format `YYYYMMDD`
+7. Set `scriptAct` to `2` to build csv and data file.
+8. Wait (usually can take an hour).
+9. Make sure to reset `scriptAct` to `0` once done.
+
+
