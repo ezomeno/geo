@@ -1,4 +1,4 @@
-# GeoLite for client-side use
+# GeoLite (for client-side use)
 This is free and unencumbered software released into the public domain.
 
 ## Import library
