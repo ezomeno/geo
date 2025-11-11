@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>GeoLite datav5</title>
+	<script src="geoLite.js" defer></script>
+	<script src="geoLite.datav5-20251025.js" defer></script>
+</head>
+<body style="background-color:#111;color:silver;">
+	<input type="text" id="ipAddr" value="1.1.1.1">
+	<button id="btnIpFetch">Fetch my IP</button>
+	<button id="btnIpSearch">OK</button>
+	<div><i>NOTE: "Fetch my IP" <b><u>r</u>equires internet</b>, but lookup done <b>locally</b>.</i></div>
+	<div><span id="ipaResult" style="font-size:20pt;"></span></div>
+	<script>
+		btnIpFetch.onclick = function () {
+			btnIpFetch.disabled = true;
+			geoLite.fetchPubIPv4(function(arr, x, u, elapsed){
+				if (!arr) btnIpFetch.disabled = false, alert("Nothing found.");
+				else btnIpFetch.disabled = false, ipAddr.value = arr[0] || ipAddr.value, btnIpSearch.onclick();
+				console.log("Result", arr, "from", u, "; elapsed:", elapsed, "[ms]");
+			});
+		};
+		btnIpSearch.onclick = function () {
+			var obj = geoLite.lookup(ipAddr.value);
+			ipaResult.innerHTML = (
+				"Country: " + obj.CN + " " + obj.emoji + " " + obj.CC + "<br>" +
+				"Continent: " + obj.contName + " (" + obj.contCode + ")<br>" +
+				"ASO: " + obj.ASO 
+			);
+		};
+	</script>
+	<script>
+console.log('copy(unittest());');
+function unittest() {
+	for (var i = 0, r = []; i < 2e5; i++) {
+		var ip = geoLite.pubIpFromRange(0), r1 = geoLite.lookup(ip);
+		if (!r1) console.log("404 ip:", ip, r1);
+		r.push([r1.IP, r1.CC, r1.ASO].join(";"));
+	}
+	return JSON.stringify(r);
+}
+</script>
+</body>
+</html>
