@@ -71,7 +71,7 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
     1. (All below is about variable `geoLiteConfig`)
     2. Set `defaultDbDate` use this format `YYYYMMDD`
     3. Set `scriptAct` to `2` to build csv and data file.
-8. Save and Run the script (assuming directory is devtools)
+8. Save and Run the script
     ```
     node geoLite-dev
     ```
