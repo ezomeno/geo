@@ -1,6 +1,7 @@
 # GeoLite (for client-side use)
 This is free and unencumbered software released into the public domain.<br>
-<img src="https://api.visitorbadge.io/api/visitors?path=ezomeno.geodatav5&countColor=%2337d67a&style=flat-square&labelStyle=upper">
+<img src="https://api.visitorbadge.io/api/visitors?path=ezomeno.geodatav5&countColor=%2337d67a&style=flat-square&labelStyle=upper"><br>
+<a href="https://ezomeno.github.io/geo/">Demo</a>, enjoy!
 
 ## Import library
 ```html
