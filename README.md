@@ -64,9 +64,10 @@ Steps:
 	- Example 1: `mmdb/GeoLite2-ASN-20230107.mmdb` (for ASN)
     - Example 2: `mmdb/GeoLite2-City-20230107.mmdb` (for City)
 7. Edit file `devtools/geoLite-dev.js`
-    - Edit variable `defaultDbDate` and set it in this format `YYYYMMDD`
-8. Set `scriptAct` to `2` to build csv and data file.
-9. Wait (usually can take an hour).
-10. Make sure to reset `scriptAct` to `0` once done.
+    1. Edit variable `defaultDbDate` and set it in this format `YYYYMMDD`
+    2. Set `scriptAct` to `2` to build csv and data file.
+9. Run the script (example: `node geoLite-dev`)
+10. Wait, usually can take upto an hour or more.
+11. Make sure to reset `scriptAct` to `0` once done.
 
 
