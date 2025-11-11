@@ -56,6 +56,7 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
 **Requirements**:
 1. NodeJS or BunJS or anything that runs nodejs code.
 2. Install dependency: `mmdb-reader` (BunJS auto installs it?)
+3. Downloaded file `devtools/geoLite-dev.js`
 
 **Steps**:
 1. Download both ASN and City mmdb from anywhere.
