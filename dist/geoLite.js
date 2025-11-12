@@ -94,7 +94,7 @@ function geoLite(nBase, dbBuf, asnBuf, contCC, contCCCN, topCC, cccn, ebCC, tran
 		~function fetchIp(ci){
 			var x = new XMLHttpRequest, u = conf[ci];
 			if (ac || !u) return ac || callback(null);
-			x.timeout = Math.min(me.ipFetchTimeout || 3000, me.ipFetchMaxTimeout || 6000);
+			x.timeout = Math.min(me.ipFetchTimeout || 5000, me.ipFetchMaxTimeout || 9000);
 			x.open("GET", u, true);
 			x.onreadystatechange = function () {
 				if (200 != x.status || 4 > x.readyState) return;
