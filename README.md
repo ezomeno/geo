@@ -17,8 +17,8 @@ Due `geoLite` needing to "decompress" data it can take half a second upto a seco
 Basic features
 - Fast lookup (~900k op/sec)
 - Country code and name (even emoji)
-- Continent name and code
-- ASO (you may also call it "ISP")
+- Continent code and name
+- ASO ("ISP" related)
 
 # Usage examples
 
