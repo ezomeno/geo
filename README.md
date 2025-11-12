@@ -58,7 +58,7 @@ Database `20251025` is **3.31MiB** (3481164 bytes; CSV size: **20.32750MiB**)<br
 Database `20241017` is **3.06MiB** (3204748 bytes; CSV size: **18.45380MiB**)<br>
 JS Databases: <a href="https://github.com/ezomeno/ezomeno.github.io/tree/main/geo">Link</a><br>
 
-## Build own database.js
+## Build own database.js and/or CSV
 
 **Requirements**:
 1. NodeJS or BunJS or anything that runs nodejs code.
@@ -84,7 +84,15 @@ JS Databases: <a href="https://github.com/ezomeno/ezomeno.github.io/tree/main/ge
     ```
 9. Wait, usually can take upto an hour or more.
 10. Make sure to reset `scriptAct` to `0` once done.
-11. Enjoy (data is built in same dir as `geoLite-dev.js`)
+12. Enjoy (data is built in same dir as `geoLite-dev.js`)
+
+**Make Detailed CSV?** <br>
+Set `geoLiteConfig.scriptAct=4` in `devtools/geoLite-dev.js`<br>
+```csv
+IPStart,IPCount,CountryCode,CountryName,ContinentCode,ContinentName,ASO
+16777216,256,AU,Australia,OC,Oceania,CLOUDFLARENET
+16777472,768,CN,China,AS,Asia,
+```
 
 ## Future plans
 None at all, unless someone suggests `public domain` licensed library that can be used to further compress data file.
