@@ -47,7 +47,7 @@ geoLite.fetchPubIPv4(function(arr, xhr, url, elapsed) {
 Note: `geoLite` already has these as default.<br>
 ```js
 // code should be executed before fetchPubIPv4 is called.
-// if both return ipv6 then ip fetch fails
+// if using IPv6 then fetch will FAIL to parse
 geoLite.ipFetchTimeout = 7000; // 7000 is default
 geoLite.ipFetchMaxTimeout = 12000; // 12000 is default
 geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
