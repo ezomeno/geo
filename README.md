@@ -54,7 +54,7 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
 ```
 
 ## GZip size?
-*(Reminder: MiB = 1024 * 1024, MB = 1000 * 1000)*
+*(Reminder: MiB = 1024 * 1024)*<br>
 Database `20251025` is 3.48MB (3481164 bytes; **3.31MiB**; CSV size: **21.31MB**)<br>
 Database `20241017` is 3.20MB (3204748 bytes; **3.06MiB**; CSV size: **19.35MB**)<br>
 Database `20230107` is 2.96MB (2956369 bytes; **2.82MiB**; CSV size: **17.37MB**)<br>
