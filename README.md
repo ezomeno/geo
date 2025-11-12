@@ -65,7 +65,7 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
     - Example: <a href="https://github.com/P3TERX/GeoLite.mmdb/releases">P3TERX/GeoLite.mmdb</a>
 3. Ensure to rename it in this format: `GeoLite2-City-{YYYYMMDD}.mmdb`
     - Example: `GeoLite2-ASN-20230107.mmdb`
-5. Create folders `mmdb` and `csv` in the same folder where is file `devtools/geoLite-dev.js`
+5. Create folders `mmdb` and `csv` in the same folder of the file `devtools/geoLite-dev.js`
 6. Put `.mmdb` files in folder `mmdb`
 	- Example 1: `mmdb/GeoLite2-ASN-20230107.mmdb` (for ASN)
     - Example 2: `mmdb/GeoLite2-City-20230107.mmdb` (for City)
