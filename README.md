@@ -35,6 +35,7 @@ ipaResult.innerHTML = (
 
 ## Fetch my IP (internet required)
 Please avoid using this feature even though it works.<br>
+**Can fail if using ipv6** (VPN/Tor or similar).<br>
 ```js
 // it will attempt to fetch ip from multiple sources until one is retrieved
 geoLite.fetchPubIPv4(function(arr, xhr, url, elapsed) {
