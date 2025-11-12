@@ -13,8 +13,7 @@ Alternatively see <a href="https://github.com/ezomeno/geo/blob/main/dist/geoLite
 ### Important
 Due `geoLite` needing to "decompress" data it can take half a second upto a second of delay before user can interact with the page.<br>
 
-## Features
-Basic features
+## Features (basics)
 - Fast lookup (~900k op/sec)
 - Country code and name (even emoji)
 - Continent code and name
