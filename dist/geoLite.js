@@ -89,7 +89,6 @@ function geoLite(nBase, dbBuf, asnBuf, contCC, contCCCN, topCC, cccn, ebCC, tran
 	};
 	me.fetchPubIPv4 = function (callback) {
 		var rd, conf = (me.ipFetchURLs || (me.ipFetchURLs = [
-			/* icanhazip might return ipv6 so it may fail on both due timeout + ipv6 */
 			"https://icanhazip.com", "https://httpbin.org/ip"
 		]));
 		~function fetchIp(ci){
