@@ -87,8 +87,8 @@ JS Databases: <a href="https://github.com/ezomeno/ezomeno.github.io/tree/main/ge
 12. Enjoy (data is built in same dir as `geoLite-dev.js`)
 
 ## Build more Detailed CSV?
-Set `geoLiteConfig.scriptAct=4` in `devtools/geoLite-dev.js`<br>
-Example output:<br>
+Set `geoLiteConfig.scriptAct=4` in `devtools/geoLite-dev.js`<br><br>
+Example output:
 ```csv
 IPStart,IPCount,CountryCode,CountryName,ContinentCode,ContinentName,ASO
 16777216,256,AU,Australia,OC,Oceania,CLOUDFLARENET
