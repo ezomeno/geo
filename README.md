@@ -71,7 +71,7 @@ geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
     - Example 2: `mmdb/GeoLite2-City-20230107.mmdb` (for City)
 7. Edit file `devtools/geoLite-dev.js`
     1. (All below is about variable `geoLiteConfig`)
-    2. Set `defaultDbDate` use this format `YYYYMMDD` (example: `20251130`)
+    2. Set `defaultDbDate` use this format `YYYYMMDD` (example: `20250930`)
     3. Set `scriptAct` to `2` to build csv and data file.
 8. Save and Run the script
     ```
