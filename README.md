@@ -53,12 +53,11 @@ geoLite.ipFetchMaxTimeout = 12000; // 12000 is default
 geoLite.ipFetchURLs = ["https://icanhazip.com", "https://httpbin.org/ip"];
 ```
 
-## GZip size?
+## GZipped size?
 *(fyi: MiB = 1024 * 1024)*<br>
 Database `20251025` is **3.31MiB** (3481164 bytes; CSV size: **20.32750MiB**)<br>
 Database `20241017` is **3.06MiB** (3204748 bytes; CSV size: **18.45380MiB**)<br>
-Database `20230107` is **2.82MiB** (2956369 bytes; CSV size: **16.56998MiB**)<br>
-JS Databases <a href="https://github.com/ezomeno/ezomeno.github.io/tree/main/geo">Link</a><br>
+JS Databases: <a href="https://github.com/ezomeno/ezomeno.github.io/tree/main/geo">Link</a><br>
 
 ## Build own database.js
 
