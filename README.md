@@ -86,7 +86,7 @@ JS Databases: <a href="https://github.com/ezomeno/ezomeno.github.io/tree/main/ge
 10. Make sure to reset `scriptAct` to `0` once done.
 12. Enjoy (data is built in same dir as `geoLite-dev.js`)
 
-**Make Detailed CSV?** <br>
+## Build more Detailed CSV?
 Set `geoLiteConfig.scriptAct=4` in `devtools/geoLite-dev.js`<br>
 ```csv
 IPStart,IPCount,CountryCode,CountryName,ContinentCode,ContinentName,ASO
