@@ -88,11 +88,11 @@ function geoLite(nBase, dbBuf, asnBuf, contCC, contCCCN, topCC, cccn, ebCC, tran
 		return [num >>> 24 & 0xFF, num >>> 16 & 0xFF, num >>> 8 & 0xFF, num & 0xFF].join(".");
 	};
 	me.fetchPubIPv4 = function (callback) {
-		var dc=0, conf = (me.ipFetchURLs || (me.ipFetchURLs = [
+		var dc=0, epochMain = new Date, conf = (me.ipFetchURLs || (me.ipFetchURLs = [
 			"https://icanhazip.com", "https://httpbin.org/ip"
 		])), cL = conf.length;
 		function nf(){
-			if (++dc >= cL && callback) callback(null), callback=0;
+			if (++dc >= cL && callback) callback(null, null, conf, new Date - epochMain, epochMain), callback=0;
 		}
 		~function fetchIp(ci){
 			var x = new XMLHttpRequest, ip,
