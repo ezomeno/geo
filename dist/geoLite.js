@@ -6,10 +6,10 @@ function geoLite(nBase, dbBuf, asnBuf, contCC, contCCCN, topCC, cccn, ebCC, tran
 	"use strict";
 	var me = geoLite, byMM = {}, cc2cont = {}, tro = translations,
 		cont2cn = {}, o122 = {}, a122 = "ABCDEFGHIJKLMNOPQRSTUVWXY".split("");
-	me.byCC = {}, me.ebCC = {}, me.byASNCode = asnBuf.split(";");
-	// alloc o122
+	me.byCC = {}, me.ebCC = {}, me.byASNCode = asnBuf.split(";"), me.byMM = byMM;
+	// alloc o122; top country codes
 	for (var i in (topCC = topCC.match(/([A-Z]{2})/g))) o122[a122[i]] = topCC[i];
-	// alloc ebCC
+	// alloc ebCC; emojis
 	for (var i = 1, arr = ebCC.split(/([A-Z]{1,2})/), c = arr.length; i < c; i += 2)
 		me.ebCC[arr[0 + i]] = arr[1 + i];
 	// alloc cont2cn
@@ -33,7 +33,7 @@ function geoLite(nBase, dbBuf, asnBuf, contCC, contCCCN, topCC, cccn, ebCC, tran
 			return retVal;
 		};
 	})();
-	// allocate buffer
+	// allocate byMM (partial ip; ranges)
 	for (i in (dbBuf = dbBuf.split("\t"))) {
 		var item = dbBuf[i],
 			parts = item.split(";"),
@@ -88,19 +88,29 @@ function geoLite(nBase, dbBuf, asnBuf, contCC, contCCCN, topCC, cccn, ebCC, tran
 		return [num >>> 24 & 0xFF, num >>> 16 & 0xFF, num >>> 8 & 0xFF, num & 0xFF].join(".");
 	};
 	me.fetchPubIPv4 = function (callback) {
-		var rd, conf = (me.ipFetchURLs || (me.ipFetchURLs = [
+		var dc=0, conf = (me.ipFetchURLs || (me.ipFetchURLs = [
 			"https://icanhazip.com", "https://httpbin.org/ip"
-		]));
+		])), cL = conf.length;
+		function nf(){
+			if (++dc >= cL && callback) callback(null), callback=0;
+		}
 		~function fetchIp(ci){
-			var x = new XMLHttpRequest, u = conf[ci],
-				timeout = ci * 500 + Math.min(me.ipFetchTimeout || 7e3, me.ipFetchMaxTimeout || 12e3);
-			if (rd || !u) return rd || callback && callback(null);
-			x.open("GET", u, true);
+			var x = new XMLHttpRequest, ip,
+			url = conf[ci], epoch = +new Date,
+			timeout = ci * 100 + Math.min(me.ipFetchTimeout || 7e3, me.ipFetchMaxTimeout || 12e3);
+			if (!url) return;
+			x.open("GET", url, true);
 			x.onreadystatechange = function () {
-				if (x.readyState > 3 && (rd = x.responseText.match(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g)))
-					callback && callback(rd, x, u, new Date - x._time) && callback++;
-			}, x.send(), x._time = +new Date;
-			setTimeout(fetchIp, timeout, ++ci);
+				var respStr = x.responseText;
+				if (4 === x.readyState) {
+					if (ip = respStr.match(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/g))
+						callback && (callback(ip, x, url, new Date - epoch, epoch), callback=0);
+					nf(); // call nf anyway
+				}
+			};
+			x.onerror = x.ontimeout = x.onabort = nf;
+			x.timeout = timeout, x.send();
+			setTimeout(fetchIp, 100, ++ci);
 		}(0);
 	};
 	me.pubIpFromRange = function (start, count) { return me.getIPv4((Math.max(start, 16777216) + Math.floor(Math.random() * Math.min(count || 4294967295, 4294967295 - Math.max(start, 16777216)))) >>> 0); };
