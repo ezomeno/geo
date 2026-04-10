@@ -4,12 +4,20 @@
  */
 
 // Usage command: node geoLite-dev
+// Usage command: ~/.bun/bin/bun geoLite-dev.js
+// bun should be >27% faster
+
+/* Fun facts (about data file):
+ * 20241017: 5.9 MiB (6_168_683)
+ * 20251025: 6.4 MiB (6_665_431 diff 497K) (373days after 2024-oct-17)
+ * 20260401: 6.5 MiB (6_792_669 diff 127K) (158days after 2025-oct-25)
+ */
 var fs = require('fs');
 var MMDBReader = require('mmdb-reader');
 var geoLiteConfig = {
-	scriptAct: 0, //0=csv2data, 1=mmdb2csv, 2=mmdb2csv+csv2data, 3=unitTest, 4=makeDetailedCSV
-	defaultDbDate: "20251025", // 20230107,20241017,20251025
-	knownSpeed: 2574100,
+	scriptAct: 2, //0=csv2data, 1=mmdb2csv, 2=mmdb2csv+csv2data, 3=unitTest, 4=makeDetailedCSV
+	defaultDbDate: "20260410", // 20230107,20241017,20251025,20260401
+	knownSpeed: 1341255, // 1341255
 	numberBase: 96, // use 66 instead if encoding issues (max base: 96)
 	addASN: true, // ASN is similar to ISP, if false then ~19% less data.
 	mmdbPath: "./mmdb/",
@@ -155,8 +163,9 @@ function makeData() {
 		topCCode[cols[2]] = topCCode[cols[2]] || 0;
 		topCCode[cols[2]]++;
 		// assign basedness
-		cols[0] = basedNum(sv = +cols[0] - 16777216, baseN);
-		cols[1] = basedNum(sLen = +cols[1], baseN);
+		// engine bug: bunjs can hang on: +cols[0] - 16777216 results in negative value somehow, using parseFloat
+		cols[0] = basedNum(sv = parseFloat(cols[0]) - 16777216, baseN);
+		cols[1] = basedNum(sLen = parseFloat(cols[1]), baseN);
 		cols[2] = cols[2] || "Z";
 		cols[3] = aso;
 		newdata.push(cols.slice(0, 4));
@@ -296,9 +305,10 @@ function makeCSV() {
 		startAddr = geoLiteConfig.IP.startNum,
 		maxIPNum = geoLiteConfig.IP.endNum || 4294967295,
 		skipto = startAddr,
+		knownSpeed = geoLiteConfig.knownSpeed,
 		csvStartLine = "IPStart,IPCount,CountryCode" + (addASN ? ",ASO" : "") + "\r\n";
 	fs.writeFileSync(geoipCSVFilePath(), csvStartLine);
-	var startDate = Date.now();
+	var startDate = Date.now(), lastElapsed, lastSpeed;
 	for (var dc = 0, ipCount = 0, lcc, laso, i = skipto, startIdx = i; i < maxIPNum; i++) {
 		var ipv4 = nipv4(i),
 			r = cityReader.lookup(ipv4),
@@ -315,15 +325,22 @@ function makeCSV() {
 			startIdx = i; ipCount = 1; lcc = cc; laso = caso;
 		} else ipCount++;
 		// display eta, speed and etc
-		if (0 === ++dc % 200000) {
-			var elapsedSeconds = (Date.now() - startDate) / 1000; // Elapsed time in seconds
-			var speed = 0 | Math.min(geoLiteConfig.knownSpeed, dc / elapsedSeconds); // Speed in IPs per second
-			var remainingIPs = maxIPNum - dc; // Remaining IPs
-			var etaSeconds = remainingIPs / speed; // ETA in seconds
-			var etaFormatted = formatTime(etaSeconds); // Format ETA
-			var elapsedFormatted = formatTime(elapsedSeconds); // Format elapsed time
-			var perc = (100 * i / maxIPNum).toFixed(2) + "% |";
-			console.log(perc, dc, "; i:", i, "; ETA:", etaFormatted, "; Elapsed:", elapsedFormatted, "; Speed:", speed + "/s");
+		var fracSpeed = 0 | lastSpeed / 3 || knownSpeed || 1;
+		if (++dc && !lastSpeed || 0 === dc % fracSpeed) {
+			var elapsedSeconds = (Date.now() - startDate) / 1000,
+				speedNow = dc / elapsedSeconds, // Elapsed time in seconds
+				speed = 0 | (speedNow < knownSpeed ? speedNow : knownSpeed); // Speed in IPs per second
+			if (!lastElapsed) lastElapsed = elapsedSeconds - 1;
+			if (1 + i >= maxIPNum || 1/3 <= elapsedSeconds - lastElapsed) {
+				var remainingIPs = maxIPNum - dc; // Remaining IPs
+				var etaSeconds = remainingIPs / speed; // ETA in seconds
+				var etaFormatted = formatTime(etaSeconds); // Format ETA
+				var elapsedFormatted = formatTime(elapsedSeconds); // Format elapsed time
+				var perc = (100 * i / maxIPNum).toFixed(2) + "% |";
+				console.log(perc, dc, "; i:", i, "; ETA:", etaFormatted, "; Elapsed:", elapsedFormatted, "; Speed:", speed + "/s");
+				lastElapsed = elapsedSeconds;
+			}
+			lastSpeed = speed;
 		}
 	}
 	if (ipCount > 0) csvAppend([startIdx, ipCount, lcc].concat(addASN ? [1 + laso.indexOf(',') ? '"' + laso + '"' : laso] : []));
